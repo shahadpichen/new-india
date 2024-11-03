@@ -1,7 +1,6 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
 *,
 ::before,
 ::after {
@@ -764,25 +763,4 @@ code {
 
 .hover\:underline:hover {
   text-decoration-line: underline;
-}
-
-.plus-jakarta-sans-uniquifier {
-  font-family: "Plus Jakarta Sans", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 400;
-}
-
-/* Roboto Mono */
-.roboto-mono-uniquifier {
-  font-family: "Roboto Mono", serif;
-  font-optical-sizing: auto;
-  font-weight: 400; /* Change this to your desired weight */
-}
-
-.gwzQJf {
-  border-radius: 8px !important;
-  border: 1px solid rgb(0, 154, 8) !important;
-  box-shadow: none !important;
-  font-weight: 500 !important;
-  color: rgb(0, 154, 8) !important;
 }

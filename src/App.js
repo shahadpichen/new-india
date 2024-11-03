@@ -1,12 +1,34 @@
 import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useNavigate,
+} from "react-router-dom";
+import {
   FaThumbsUp,
   FaUserShield,
   FaSearch,
   FaRegLightbulb,
 } from "react-icons/fa";
 import Proof from "./components/anon-aadhaar-proof";
+import Petitions from "./pages/petitions";
+import "./App.css";
 
 export default function App() {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/petitions" element={<Petitions />} />
+      </Routes>
+    </Router>
+  );
+}
+
+// Create a separate Home component with the existing content
+function Home() {
+  const navigate = useNavigate();
+
   return (
     <main className="container mx-auto px-4 flex-grow text-black plus-jakarta-sans-uniquifier">
       <div className="w-full max-w-3xl mx-auto">
@@ -28,7 +50,7 @@ export default function App() {
           <div className="relative max-w-xl flex gap-2">
             <Proof />
             <button
-              onClick={() => (window.location.href = "/petitions")}
+              onClick={() => navigate("/petitions")}
               className="px-4 py-1 border border-orange-500 rounded-lg text-orange-500 font-semibold hover:bg-gray-50"
             >
               View the Petition
@@ -102,13 +124,22 @@ export default function App() {
               amplify your voice securely and anonymously.
             </p>
             <div className="flex flex-wrap justify-center gap-4 mt-4">
-              <a href="#" className="text-blue-600 hover:underline text-sm">
+              <a
+                href="/privacy"
+                className="text-blue-600 hover:underline text-sm"
+              >
                 Privacy Policy
               </a>
-              <a href="#" className="text-blue-600 hover:underline text-sm">
+              <a
+                href="/terms"
+                className="text-blue-600 hover:underline text-sm"
+              >
                 Terms of Service
               </a>
-              <a href="#" className="text-blue-600 hover:underline text-sm">
+              <a
+                href="/report"
+                className="text-blue-600 hover:underline text-sm"
+              >
                 Report Issues
               </a>
             </div>
