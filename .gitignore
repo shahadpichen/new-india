@@ -23,5 +23,6 @@ yarn-debug.log*
 yarn-error.log*
 
 # Ignore specific files and directories
+/public/circuit_final.zkey
 /public/aadhaar-verifier.wasm
 /public/vkey.json
