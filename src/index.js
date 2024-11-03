@@ -9,7 +9,7 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <AnonAadhaarProvider
     _artifactslinks={{
-      zkey_url: "/circuit_final.zkey",
+      // zkey_url: "/circuit_final.zkey",
       vkey_url: "/vkey.json",
       wasm_url: "/aadhaar-verfier.wasm",
     }}
