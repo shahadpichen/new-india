@@ -1,181 +1,145 @@
-import React, { useState } from "react";
-import { BiSolidUpArrow } from "react-icons/bi";
+import React, { useState, useMemo, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { getPincodeDetails } from "../data/indianData";
+import { petitionsData } from "../data/petitionsData";
+import PetitionsSidebar from "../components/petitions/petitions-sidebar";
+import PetitionsHeader from "../components/petitions/petitions-header";
+import PetitionCard from "../components/petitions/petition-card";
+
+const getRelativeTimeString = (date) => {
+  const now = new Date();
+  const diffInMs = now - new Date(date);
+  const diffInDays = Math.floor(diffInMs / (1000 * 60 * 60 * 24));
+  const diffInMonths = Math.floor(diffInDays / 30);
+  const diffInYears = Math.floor(diffInDays / 365);
+
+  if (diffInDays === 0) return "Today";
+  if (diffInDays === 1) return "Yesterday";
+  if (diffInDays < 30) return `${diffInDays} days ago`;
+  if (diffInMonths < 12) return `${diffInMonths} months ago`;
+  return `${diffInYears} years ago`;
+};
 
 const Petitions = () => {
-  const [selectedState, setSelectedState] = useState("Select State");
-  const [pincode, setPincode] = useState("");
+  const navigate = useNavigate();
+  const { state, pincode } = useParams();
+  const [selectedState, setSelectedState] = useState(state || "Select State");
+  const [pincodeInput, setPincodeInput] = useState(pincode || "");
+  const [activeSort, setActiveSort] = useState("latest");
+  const [petitions] = useState(petitionsData);
+  const [pincodeResults, setPincodeResults] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
-  // Sample states - you can expand this list
-  const indianStates = [
-    "Andhra Pradesh",
-    "Delhi",
-    "Karnataka",
-    "Kerala",
-    "Maharashtra",
-    "Tamil Nadu",
-    "Uttar Pradesh",
-    // Add more states as needed
-  ];
+  useEffect(() => {
+    let url = "/petitions/india";
+    if (selectedState !== "Select State") {
+      url += `/${selectedState}`;
+      if (pincodeInput) {
+        url += `/${pincodeInput}`;
+      }
+    }
+    navigate(url);
+  }, [selectedState, pincodeInput, navigate]);
 
-  // Updated petitions data with location information
-  const petitions = [
-    {
-      id: 1,
-      title: "Improve Road Infrastructure",
-      description:
-        "Petition for better roads and infrastructure in our locality. The current state of roads is causing inconvenience to daily commuters and affecting the overall quality of life.",
-      supporters: 234,
-      state: "Maharashtra",
-      location: "Mumbai",
-      pincode: "400001",
-    },
-    {
-      id: 2,
-      title: "Clean Water Supply",
-      description:
-        "Demanding regular clean water supply in our neighborhood. Access to clean water is a basic human right, and it's essential for public health and hygiene.",
-      supporters: 156,
-      state: "Karnataka",
-      location: "Bangalore",
-      pincode: "560001",
-    },
-    {
-      id: 1,
-      title: "Improve Road Infrastructure",
-      description:
-        "Petition for better roads and infrastructure in our locality. The current state of roads is causing inconvenience to daily commuters and affecting the overall quality of life.",
-      supporters: 234,
-      state: "Maharashtra",
-      location: "Mumbai",
-      pincode: "400001",
-    },
-    {
-      id: 2,
-      title: "Clean Water Supply",
-      description:
-        "Demanding regular clean water supply in our neighborhood. Access to clean water is a basic human right, and it's essential for public health and hygiene.",
-      supporters: 156,
-      state: "Karnataka",
-      location: "Bangalore",
-      pincode: "560001",
-    },
-    {
-      id: 1,
-      title: "Improve Road Infrastructure",
-      description:
-        "Petition for better roads and infrastructure in our locality. The current state of roads is causing inconvenience to daily commuters and affecting the overall quality of life.",
-      supporters: 234,
-      state: "Maharashtra",
-      location: "Mumbai",
-      pincode: "400001",
-    },
-    {
-      id: 2,
-      title: "Clean Water Supply",
-      description:
-        "Demanding regular clean water supply in our neighborhood. Access to clean water is a basic human right, and it's essential for public health and hygiene.",
-      supporters: 156,
-      state: "Karnataka",
-      location: "Bangalore",
-      pincode: "560001",
-    },
-    // ... other petitions with location data
-  ];
+  const handlePincodeChange = async (e) => {
+    const value = e.target.value;
+    setPincodeInput(value);
+
+    if (value.length === 6) {
+      setIsLoading(true);
+      try {
+        const details = await getPincodeDetails(value);
+        if (details) {
+          setSelectedState(details.state);
+          setPincodeResults([details]);
+        }
+      } catch (error) {
+        console.error("Error:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+  };
+
+  const filteredPetitions = useMemo(() => {
+    return petitions.filter((petition) => {
+      if (
+        selectedState !== "Select State" &&
+        petition.state !== selectedState
+      ) {
+        return false;
+      }
+      if (pincodeInput && petition.pincode !== pincodeInput) {
+        return false;
+      }
+      return true;
+    });
+  }, [selectedState, pincodeInput, petitions]);
+
+  const sortedPetitions = useMemo(() => {
+    switch (activeSort) {
+      case "latest":
+        return [...filteredPetitions].sort(
+          (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+        );
+      case "most-upvoted":
+        return [...filteredPetitions].sort(
+          (a, b) => b.supporters - a.supporters
+        );
+      default:
+        return filteredPetitions;
+    }
+  }, [filteredPetitions, activeSort]);
+
+  const handleIndiaClick = () => {
+    setSelectedState("Select State");
+    setPincodeInput("");
+    navigate("/petitions/india");
+  };
 
   return (
     <div className="container mx-auto px-4 flex-grow text-black plus-jakarta-sans-uniquifier">
       <div className="w-full max-w-6xl mx-auto flex">
-        {/* Sidebar */}
-        <aside className="flex flex-col my-[5vh] justify-between w-80 py-10 pl-6 border-r space-y-6">
-          {/* Project Name */}
-          <div className="flex flex-col justify-between">
-            <div
-              className="text-2xl text-end font-bold mb-8 pr-6"
-              style={{
-                WebkitTextFillColor: "#FFFFFF",
-                WebkitTextStrokeWidth: "1px",
-                WebkitTextStrokeColor: "#000",
-              }}
-            >
-              Anon-Petition
-            </div>
+        <PetitionsSidebar
+          selectedState={selectedState}
+          pincodeInput={pincodeInput}
+          pincodeResults={pincodeResults}
+          isLoading={isLoading}
+          onStateChange={setSelectedState}
+          onPincodeChange={handlePincodeChange}
+          onIndiaClick={handleIndiaClick}
+        />
 
-            {/* Location Filters */}
-            <div className="flex flex-col text-sm items-end space-y-4">
-              <button className="w-1/2 py-2 px-4 bg-orange-100 text-orange-600 font-semibold">
-                India
-              </button>
+        <div className="flex flex-col h-screen">
+          <PetitionsHeader
+            activeSort={activeSort}
+            setActiveSort={setActiveSort}
+          />
 
-              <select
-                value={selectedState}
-                onChange={(e) => setSelectedState(e.target.value)}
-                className="w-1/2 py-2 px-4 border border-r-0 focus:outline-none focus:border-orange-500"
-              >
-                <option disabled>Select State</option>
-                {indianStates.map((state) => (
-                  <option key={state} value={state}>
-                    {state}
-                  </option>
-                ))}
-              </select>
-
-              <input
-                type="text"
-                placeholder="Enter Pincode"
-                value={pincode}
-                onChange={(e) => setPincode(e.target.value)}
-                className="w-1/2 py-2 px-4 border border-r-0 focus:outline-none focus:border-orange-500"
-                maxLength={6}
-              />
-            </div>
-          </div>
-          {/* Privacy Information */}
-          <div className="mt-auto pt-6 pr-1 border-t space-y-4">
-            <div className="flex items-center text-sm text-gray-600">
-              <p>Powered by Anon Aadhaar for secure verification</p>
-            </div>
-            <div className="flex items-center text-sm text-gray-600">
-              <p>Your identity remains completely anonymous</p>
-            </div>
-          </div>
-        </aside>
-
-        {/* Main Content */}
-        <main className="flex-1 p-8 h-screen overflow-y-auto">
-          {/* Petitions List */}
-          <div className="max-w-3xl mx-auto space-y-6 ">
-            {petitions.map((petition) => (
-              <div
-                key={petition.id}
-                className="flex justify-between border gap-5 border-gray-200 rounded-sm p-4 shadow-sm hover:bg-gray-50 transition-shadow"
-              >
-                <div className="flex flex-col">
-                  <h2 className="text-lg font-medium mb-1">{petition.title}</h2>
-                  <p className="text-sm text-gray-500 mb-2">
-                    {petition.description}
+          <main className="flex-1 p-8 overflow-y-auto h-[93vh]">
+            <div className="max-w-3xl mx-auto space-y-6">
+              {sortedPetitions.length === 0 ? (
+                <div className="text-center py-12">
+                  <p className="text-base text-center text-gray-600">
+                    {selectedState === "Select State"
+                      ? "No petitions found in India yet. Area looks clean! 🌟"
+                      : `No petitions found in ${selectedState}${
+                          pincodeInput ? ` (PIN: ${pincodeInput})` : ""
+                        }. Area looks peaceful! 🌿`}
                   </p>
-                  <div className="flex gap-2 text-xs text-gray-600">
-                    <span className="bg-gray-100 px-3 py-1 rounded-full">
-                      {petition.state}
-                    </span>
-                    <span className="bg-gray-100 px-2 py-1 rounded-full">
-                      {petition.location}
-                    </span>
-                    <span className="bg-gray-100 px-2 py-1 rounded-full">
-                      PIN: {petition.pincode}
-                    </span>
-                  </div>
                 </div>
-                <div className="flex items-center justify-center text-sm">
-                  <button className="flex flex-col items-center justify-center rounded-sm px-3 py-1 border border-orange-400 text-orange-400 font-medium hover:bg-orange-100 transition-colors">
-                    <BiSolidUpArrow />
-                    {petition.supporters}
-                  </button>
-                </div>
-              </div>
-            ))}
-          </div>
-        </main>
+              ) : (
+                sortedPetitions.map((petition) => (
+                  <PetitionCard
+                    key={petition.id}
+                    petition={petition}
+                    getRelativeTimeString={getRelativeTimeString}
+                  />
+                ))
+              )}
+            </div>
+          </main>
+        </div>
       </div>
     </div>
   );
