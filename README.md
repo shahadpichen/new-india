@@ -1,10 +1,10 @@
-# Anon-Petition
+# New-India
 
-Anon-Petition is a decentralized platform that enables citizens to create and support petitions anonymously using Anon Aadhaar for verification. The platform ensures privacy while maintaining accountability through pincode-based verification.
+New-India is a decentralized platform that enables citizens to create and support petitions anonymously using Anon Aadhaar for verification. The platform ensures privacy while maintaining accountability through pincode-based verification.
 
 ## About Anon Aadhaar
 
-Anon Aadhaar is a zero-knowledge proof protocol that allows users to prove they own an Aadhaar card without revealing their identity. In Anon-Petition:
+Anon Aadhaar is a zero-knowledge proof protocol that allows users to prove they own an Aadhaar card without revealing their identity. In New_India:
 
 - Users verify their identity using their Aadhaar card's QR code
 - The proof contains the user's pincode but keeps other details private
