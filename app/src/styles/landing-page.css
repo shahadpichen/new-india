@@ -1,0 +1,39 @@
+.petitions-submission .gwzQJf {
+  border-radius: 8px !important;
+  border: 1px solid rgb(0, 154, 8) !important;
+  box-shadow: none !important;
+  font-weight: 500 !important;
+  color: rgb(0, 154, 8) !important;
+}
+
+.kqXqPY {
+  border-radius: 0px !important;
+  border: 0px solid #02006a !important;
+  box-shadow: none !important;
+  font-weight: 700 !important;
+  color: #02006a !important;
+  min-width: fit-content !important;
+}
+
+.gLesnG {
+  background: white !important;
+  border-radius: 0px !important;
+  border: 1px solid black !important;
+  width: 45vw !important;
+  height: 75vh !important;
+  overflow-y: auto !important;
+  overflow-x: auto !important;
+}
+
+.petitions-submission .custom-button {
+  padding: 0.5rem 1rem !important;
+  border: 1px solid #009a08 !important;
+  background-color: white !important;
+  border-radius: 0.5rem !important;
+  color: #009a08 !important;
+  font-weight: 600 !important;
+}
+
+.petitions-submission .custom-button:hover {
+  background-color: #f3f3f3 !important;
+}

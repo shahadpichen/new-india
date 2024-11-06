@@ -4,7 +4,6 @@ import PetitionSubmission from "../components/landing-page/petition-submission";
 import HowItWorks from "../components/landing-page/how-it-works";
 import WhyUseSection from "../components/landing-page/why-use-section";
 import Footer from "../components/landing-page/footer-component";
-import "../App.css";
 
 function Home() {
   return (

@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAnonAadhaar, useProver } from "@anon-aadhaar/react";
 import { indianStates, getPincodeDetails } from "../data/indianData";
+import { createPetition } from "../services/petitionService";
+import { toast } from "react-hot-toast";
 
 function SubmitPetition() {
   const [anonAadhaar] = useAnonAadhaar();
@@ -93,14 +95,30 @@ function SubmitPetition() {
     setIsSubmitting(true);
 
     if (validateForm()) {
-      // Log the complete data
-      console.log({
-        ...formData,
-        supporters: 0,
-        createdAt: new Date().toISOString(),
-        pincodeDetails: pincodeDetails, // Including the pincode verification details
-      });
-      navigate("/petitions");
+      try {
+        const petitionData = {
+          title: formData.title,
+          description: formData.description,
+          state: formData.state,
+          location: formData.location,
+          pincode: formData.pincode,
+          pincodeDetails: pincodeDetails,
+          supporters: 0,
+        };
+
+        const { data, error } = await createPetition(petitionData);
+
+        if (error) {
+          toast.error("Failed to submit petition. Please try again.");
+          console.error("Submission error:", error);
+        } else {
+          toast.success("Petition submitted successfully!");
+          navigate("/petitions");
+        }
+      } catch (error) {
+        toast.error("An unexpected error occurred");
+        console.error("Submission error:", error);
+      }
     }
 
     setIsSubmitting(false);

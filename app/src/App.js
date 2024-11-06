@@ -7,25 +7,29 @@ import {
 import Petitions from "./pages/petitions";
 import Home from "./pages/landing-page";
 import SubmitPetition from "./pages/submit-petition";
+import { Toaster } from "sonner";
 
 function App() {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route
-          path="/petitions"
-          element={<Navigate to="/petitions/india" replace />}
-        />
-        <Route path="/petitions/india" element={<Petitions />} />
-        <Route path="/petitions/india/:state" element={<Petitions />} />
-        <Route
-          path="/petitions/india/:state/:pincode"
-          element={<Petitions />}
-        />
-        <Route path="/submit-petition" element={<SubmitPetition />} />
-      </Routes>
-    </Router>
+    <>
+      <Toaster richColors position="bottom-right" />
+      <Router>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route
+            path="/petitions"
+            element={<Navigate to="/petitions/india" replace />}
+          />
+          <Route path="/petitions/india" element={<Petitions />} />
+          <Route path="/petitions/india/:state" element={<Petitions />} />
+          <Route
+            path="/petitions/india/:state/:pincode"
+            element={<Petitions />}
+          />
+          <Route path="/submit-petition" element={<SubmitPetition />} />
+        </Routes>
+      </Router>
+    </>
   );
 }
 

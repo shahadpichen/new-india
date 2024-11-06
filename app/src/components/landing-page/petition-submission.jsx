@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import Proof from "../auth/anon-aadhaar-proof";
+import "../../styles/landing-page.css";
 
 function PetitionSubmission() {
   const navigate = useNavigate();
@@ -11,7 +12,7 @@ function PetitionSubmission() {
         Anonymously Submit Your Petition
       </h1>
 
-      <div className="max-w-xl flex gap-2">
+      <div className="max-w-xl flex gap-2 petitions-submission">
         <Proof />
         <button
           onClick={() => navigate("/petitions")}

@@ -1,7 +1,7 @@
 import React, { useState, useMemo, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { getPincodeDetails } from "../data/indianData";
-import { petitionsData } from "../data/petitionsData";
+import { getPetitionsData } from "../data/petitionsData";
 import PetitionsSidebar from "../components/petitions/petitions-sidebar";
 import PetitionsHeader from "../components/petitions/petitions-header";
 import PetitionCard from "../components/petitions/petition-card";
@@ -26,7 +26,7 @@ const Petitions = () => {
   const [selectedState, setSelectedState] = useState(state || "Select State");
   const [pincodeInput, setPincodeInput] = useState(pincode || "");
   const [activeSort, setActiveSort] = useState("latest");
-  const [petitions] = useState(petitionsData);
+  const [petitions, setPetitions] = useState([]);
   const [pincodeResults, setPincodeResults] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -40,6 +40,17 @@ const Petitions = () => {
     }
     navigate(url);
   }, [selectedState, pincodeInput, navigate]);
+
+  useEffect(() => {
+    const fetchPetitions = async () => {
+      setIsLoading(true);
+      const data = await getPetitionsData();
+      setPetitions(data);
+      setIsLoading(false);
+    };
+
+    fetchPetitions();
+  }, []);
 
   const handlePincodeChange = async (e) => {
     const value = e.target.value;

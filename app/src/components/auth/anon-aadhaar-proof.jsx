@@ -31,7 +31,7 @@ export default function Proof() {
         ) : (
           <button
             onClick={() => navigate("/submit-petition")}
-            className="px-4 py-2 border border-[#009a08] rounded-lg text-[#009a08] font-semibold hover:bg-gray-50"
+            className="custom-button"
           >
             Submit Petition
           </button>

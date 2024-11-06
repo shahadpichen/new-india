@@ -1,5 +1,4 @@
 import { createClient } from "@supabase/supabase-js";
-// or import your preferred database client
 
 const supabase = createClient("YOUR_SUPABASE_URL", "YOUR_SUPABASE_KEY");
 
