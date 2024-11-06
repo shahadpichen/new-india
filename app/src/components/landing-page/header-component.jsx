@@ -12,7 +12,7 @@ function Header() {
           WebkitTextStrokeColor: "#000",
         }}
       >
-        Anon-Petition
+        New-India
       </h1>
       <div
         className="flex justify-center items-center gap-2 cursor-pointer font-semibold"

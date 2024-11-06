@@ -4,8 +4,8 @@ function Footer() {
   return (
     <footer className="text-center text-gray-600 mt-24 mb-12">
       <p>
-        &copy; Anon-Petition - Submit petitions, support change, and amplify
-        your voice securely and anonymously.
+        &copy; New-India - Submit petitions, support change, and amplify your
+        voice securely and anonymously.
       </p>
       <div className="flex flex-wrap justify-center gap-4 mt-4">
         <a href="/privacy" className="text-blue-600 hover:underline text-sm">

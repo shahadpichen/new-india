@@ -31,7 +31,6 @@ function Home() {
           Aadhaar to ensure that petitions are from Indian citizens only,
           safeguarding your privacy while ensuring authenticity.
         </p>
-
         <HowItWorks />
         <WhyUseSection />
         <section className="mt-24 mb-12">

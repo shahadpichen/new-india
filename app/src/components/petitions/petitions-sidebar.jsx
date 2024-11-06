@@ -27,7 +27,7 @@ const PetitionsSidebar = ({
           }}
           onClick={() => navigate("/")}
         >
-          Anon-Petition
+          New-India
         </div>
 
         <div className="flex flex-col text-sm items-end space-y-4">
