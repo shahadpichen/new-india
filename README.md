@@ -1,71 +1,41 @@
-# Getting Started with Create React App
+# Anon-Petition
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Anon-Petition is a decentralized platform that enables citizens to create and support petitions anonymously using Anon Aadhaar for verification. The platform ensures privacy while maintaining accountability through pincode-based verification.
 
-## Available Scripts
+## About Anon Aadhaar
 
-In the project directory, you can run:
+Anon Aadhaar is a zero-knowledge proof protocol that allows users to prove they own an Aadhaar card without revealing their identity. In Anon-Petition:
 
-### `npm start`
+- Users verify their identity using their Aadhaar card's QR code
+- The proof contains the user's pincode but keeps other details private
+- A unique nullifier ensures each user can only upvote once
+- No personal information is stored or shared
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Learn more about [Anon Aadhaar](https://github.com/privacy-scaling-explorations/anon-aadhaar)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Features
 
-### `npm test`
+- **Anonymous Authentication**: Uses Anon Aadhaar for secure, privacy-preserving verification
+- **Pincode-Based Petitions**: Users can only upvote petitions from their own pincode area
+- **One-Time Upvoting**: Each verified user can upvote a petition only once
+- **Location Filtering**: Filter petitions by state and pincode
+- **Real-time Updates**: Instant feedback on petition submissions and upvotes
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Environment Setup
 
-### `npm run build`
+1. Create a Supabase project at [supabase.com](https://supabase.com)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+2. Get your Supabase credentials:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+   - Go to Project Settings
+   - Find API Settings
+   - Copy the `Project URL` and `anon` public API key
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+3. Create a `.env.local` file in the project root with the following content:
 
-### `npm run eject`
+   ```
+   REACT_APP_SUPABASE_URL=your_project_url
+   REACT_APP_SUPABASE_ANON_KEY=your_anon_key
+   ```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-# anon-petition
+If you encounter any issues, please open an issue on our GitHub repository.
