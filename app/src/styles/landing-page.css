@@ -19,7 +19,7 @@
   background: white !important;
   border-radius: 0px !important;
   border: 1px solid black !important;
-  width: 45vw !important;
+  width: 55vw !important;
   height: 75vh !important;
   overflow-y: auto !important;
   overflow-x: auto !important;
@@ -28,6 +28,7 @@
 .petitions-submission .custom-button {
   padding: 0.5rem 1rem !important;
   border: 1px solid #009a08 !important;
+  font-size: 16px !important;
   background-color: white !important;
   border-radius: 0.5rem !important;
   color: #009a08 !important;

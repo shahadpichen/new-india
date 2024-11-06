@@ -2,7 +2,7 @@ import React from "react";
 
 function HowItWorks() {
   return (
-    <section className="mt-24">
+    <section className="mt-16">
       <h2 className="text-2xl font-semibold mb-4">How Anon-Petition Works</h2>
 
       <div className="flex flex-wrap mb-6 gap-2">

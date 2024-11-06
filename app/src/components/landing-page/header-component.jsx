@@ -1,24 +1,11 @@
 import React from "react";
-import {
-  AnonAadhaarProof,
-  useAnonAadhaar,
-  useProver,
-} from "@anon-aadhaar/react";
+import { FaGithub } from "react-icons/fa";
 
 function Header() {
-  const [anonAadhaar] = useAnonAadhaar();
-  const [, latestProof] = useProver();
-
-  React.useEffect(() => {
-    if (latestProof) {
-      console.log("Pincode:", latestProof.proof.pincode);
-    }
-  }, [latestProof]);
-
   return (
-    <header>
+    <header className="flex justify-between items-center my-16">
       <h1
-        className="text-center text-2xl font-semibold my-10"
+        className="text-center text-2xl font-semibold"
         style={{
           WebkitTextFillColor: "#FFFFFF",
           WebkitTextStrokeWidth: "1px",
@@ -27,15 +14,14 @@ function Header() {
       >
         Anon-Petition
       </h1>
-
-      <div className="absolute right-8 top-8 flex flex-col items-end gap-2">
-        {anonAadhaar?.status === "logged-in" && (
-          <>
-            {latestProof && (
-              <AnonAadhaarProof code={JSON.stringify(latestProof, null, 2)} />
-            )}
-          </>
-        )}
+      <div
+        className="flex justify-center items-center gap-2 cursor-pointer font-semibold"
+        onClick={() =>
+          window.open("https://github.com/shahadpichen/new-india", "_blank")
+        }
+      >
+        <FaGithub className="size-7" />
+        View on GitHub
       </div>
     </header>
   );

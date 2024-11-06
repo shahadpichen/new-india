@@ -21,12 +21,6 @@ function PetitionSubmission() {
           View Petitions
         </button>
       </div>
-
-      <p className="text-gray-600 mt-8">
-        Share your concerns without revealing your identity. We use Anon Aadhaar
-        to ensure that petitions are from Indian citizens only, safeguarding
-        your privacy while ensuring authenticity.
-      </p>
     </section>
   );
 }

@@ -14,9 +14,9 @@ function Footer() {
         <a href="/terms" className="text-blue-600 hover:underline text-sm">
           Terms of Service
         </a>
-        <a href="/report" className="text-blue-600 hover:underline text-sm">
+        {/* <a href="/report" className="text-blue-600 hover:underline text-sm">
           Report Issues
-        </a>
+        </a> */}
       </div>
     </footer>
   );
