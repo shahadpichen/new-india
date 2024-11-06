@@ -29,6 +29,18 @@ const Petitions = () => {
   const [petitions, setPetitions] = useState([]);
   const [pincodeResults, setPincodeResults] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   useEffect(() => {
     let url = "/petitions/india";
@@ -110,48 +122,56 @@ const Petitions = () => {
 
   return (
     <div className="container mx-auto px-4 flex-grow text-black plus-jakarta-sans-uniquifier">
-      <div className="w-full max-w-6xl mx-auto flex">
-        <PetitionsSidebar
-          selectedState={selectedState}
-          pincodeInput={pincodeInput}
-          pincodeResults={pincodeResults}
-          isLoading={isLoading}
-          onStateChange={setSelectedState}
-          onPincodeChange={handlePincodeChange}
-          onIndiaClick={handleIndiaClick}
-        />
-
-        <div className="flex flex-col h-screen">
-          <PetitionsHeader
-            activeSort={activeSort}
-            setActiveSort={setActiveSort}
+      {isMobile ? (
+        <div className="text-center py-12">
+          <p className="text-base text-gray-600">
+            Please use a laptop or PC for a better experience.
+          </p>
+        </div>
+      ) : (
+        <div className="w-full max-w-6xl mx-auto flex">
+          <PetitionsSidebar
+            selectedState={selectedState}
+            pincodeInput={pincodeInput}
+            pincodeResults={pincodeResults}
+            isLoading={isLoading}
+            onStateChange={setSelectedState}
+            onPincodeChange={handlePincodeChange}
+            onIndiaClick={handleIndiaClick}
           />
 
-          <main className="flex-1 p-8 overflow-y-auto h-[93vh]">
-            <div className="max-w-3xl mx-auto space-y-6">
-              {sortedPetitions.length === 0 ? (
-                <div className="text-center py-12">
-                  <p className="text-base text-center text-gray-600">
-                    {selectedState === "Select State"
-                      ? "No petitions found in India yet. Area looks clean! 🌟"
-                      : `No petitions found in ${selectedState}${
-                          pincodeInput ? ` (PIN: ${pincodeInput})` : ""
-                        }. Area looks peaceful! 🌿`}
-                  </p>
-                </div>
-              ) : (
-                sortedPetitions.map((petition) => (
-                  <PetitionCard
-                    key={petition.id}
-                    petition={petition}
-                    getRelativeTimeString={getRelativeTimeString}
-                  />
-                ))
-              )}
-            </div>
-          </main>
+          <div className="flex flex-col h-screen">
+            <PetitionsHeader
+              activeSort={activeSort}
+              setActiveSort={setActiveSort}
+            />
+
+            <main className="flex-1 p-8 overflow-y-auto h-[93vh]">
+              <div className="max-w-3xl mx-auto space-y-6">
+                {sortedPetitions.length === 0 ? (
+                  <div className="text-center py-12">
+                    <p className="text-base text-center text-gray-600">
+                      {selectedState === "Select State"
+                        ? "No petitions found in India yet. Area looks clean! 🌟"
+                        : `No petitions found in ${selectedState}${
+                            pincodeInput ? ` (PIN: ${pincodeInput})` : ""
+                          }. Area looks peaceful! 🌿`}
+                    </p>
+                  </div>
+                ) : (
+                  sortedPetitions.map((petition) => (
+                    <PetitionCard
+                      key={petition.id}
+                      petition={petition}
+                      getRelativeTimeString={getRelativeTimeString}
+                    />
+                  ))
+                )}
+              </div>
+            </main>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };
