@@ -8,6 +8,8 @@ import Petitions from "./pages/petitions";
 import Home from "./pages/landing-page";
 import SubmitPetition from "./pages/submit-petition";
 import { Toaster } from "sonner";
+import Terms from "./pages/terms";
+import Privacy from "./pages/privacy";
 
 function App() {
   return (
@@ -27,6 +29,8 @@ function App() {
             element={<Petitions />}
           />
           <Route path="/submit-petition" element={<SubmitPetition />} />
+          <Route path="/terms" element={<Terms />} />
+          <Route path="/privacy" element={<Privacy />} />
         </Routes>
       </Router>
     </>

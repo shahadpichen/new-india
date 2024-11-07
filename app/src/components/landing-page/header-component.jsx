@@ -1,11 +1,15 @@
 import React from "react";
 import { FaGithub } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 function Header() {
+  const navigate = useNavigate();
+
   return (
     <header className="flex justify-between items-center my-16">
       <h1
-        className="text-center text-2xl font-semibold"
+        className="text-center text-2xl font-semibold cursor-pointer"
+        onClick={() => navigate("/")}
         style={{
           WebkitTextFillColor: "#FFFFFF",
           WebkitTextStrokeWidth: "1px",
