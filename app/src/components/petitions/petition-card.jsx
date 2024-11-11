@@ -43,11 +43,8 @@ const PetitionCard = ({ petition, getRelativeTimeString }) => {
         },
         body: JSON.stringify({
           proof: storedProof,
-          petitionDetails: {
-            title: petition.title,
-            description: petition.description,
-            petition_hash: petition.petition_hash,
-          },
+          title: petition.title,
+          description: petition.description,
         }),
       });
 
@@ -57,7 +54,7 @@ const PetitionCard = ({ petition, getRelativeTimeString }) => {
         if (data.isValid) {
           toast.success("Petition proof verified successfully!");
         } else {
-          toast.error(data.message || "Petition proof verification failed!");
+          toast.error("Petition proof verification failed!");
         }
       } else {
         throw new Error(data.message);

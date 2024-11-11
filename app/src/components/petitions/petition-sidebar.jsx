@@ -1,6 +1,5 @@
 import React from "react";
 import { indianStates } from "../../data/indianData";
-import Proof from "../auth/anon-aadhaar-proof";
 import "../../styles/petitions.css";
 import { useNavigate } from "react-router-dom";
 
@@ -13,12 +12,18 @@ const Sidebar = ({
   onPincodeChange,
   onIndiaClick,
 }) => {
+  const navigate = useNavigate();
   return (
     <aside className="flex flex-col justify-between w-40 py-[10vh] pl-6 border-r max-h-[93vh] space-y-6">
       <div className="flex flex-col justify-between">
         <div className="flex flex-col text-sm items-end space-y-4">
           <div className="w-full petitions-sidebar ">
-            <Proof />
+            <button
+              onClick={() => navigate("/submit-petition")}
+              className="w-full py-2 px-4 bg-green-100 text-green-700 font-semibold"
+            >
+              Submit Petition
+            </button>
           </div>
           <button
             onClick={onIndiaClick}

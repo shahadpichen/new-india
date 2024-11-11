@@ -1,5 +1,8 @@
 const { init, verify } = require("@anon-aadhaar/core");
-const crypto = require("crypto");
+const { ethers } = require("ethers");
+const { BigNumber } = require("@ethersproject/bignumber");
+const { zeroPad } = require("@ethersproject/bytes");
+const { keccak256 } = require("@ethersproject/keccak256");
 
 // Define artifact URLs
 const artifactsUrls = {
@@ -30,52 +33,53 @@ const initializeAnonAadhaar = async () => {
 // Initialize when the server starts
 initializeAnonAadhaar();
 
-const generatePetitionHash = (title, description, nullifier) => {
-  const petitionText = title + description + nullifier;
-  return crypto.createHash("sha256").update(petitionText).digest("hex");
-};
+// Add the hash function
+function hash(message) {
+  message = BigNumber.from(message).toTwos(256).toHexString();
+  message = zeroPad(message, 32);
+  return (BigInt(keccak256(message)) >> BigInt(3)).toString();
+}
 
 const verifyAnonAadhaarProof = async (req, res) => {
   try {
-    const { proof, petitionDetails } = req.body;
+    const { proof, title, description } = req.body;
 
-    if (!proof || !proof.proof || !petitionDetails) {
+    if (!proof || !proof.proof || !title || !description) {
       return res.status(400).json({
         success: false,
-        message: "Missing proof or petition details",
+        message: "Missing proof, title, or description",
       });
     }
 
-    // Generate hash from provided details
-    const calculatedHash = generatePetitionHash(
-      petitionDetails.title,
-      petitionDetails.description,
-      proof.proof.nullifier
+    // Generate signal hash from title and description
+    const combinedString = `${title}:${description}`;
+    const initialHash = ethers.utils.keccak256(
+      ethers.utils.toUtf8Bytes(combinedString)
     );
+    const expectedSignalHash = hash(initialHash);
 
-    // Compare with both stored hash and proof petition hash
-    if (
-      calculatedHash !== petitionDetails.petition_hash ||
-      calculatedHash !== proof.petition
-    ) {
-      return res.json({
+    console.log("Expected signal hash:", expectedSignalHash);
+
+    // Get signal hash from proof
+    const proofSignalHash = proof.proof.signalHash;
+
+    // Compare signal hashes
+    if (expectedSignalHash !== proofSignalHash) {
+      return res.status(400).json({
         success: false,
-        isValid: false,
-        message: "User did not create this petition.",
-        details: {
-          calculatedHash,
-          storedHash: petitionDetails.petition_hash,
-          proofHash: proof.petition,
-        },
+        message: "Signal hash mismatch - petition data has been tampered with",
+        expected: expectedSignalHash,
+        received: proofSignalHash,
       });
     }
 
-    // If both hashes match, proceed with proof verification
+    // Verify the proof itself
     const isValid = await verify(proof);
 
     return res.json({
       success: true,
       isValid,
+      signalVerified: true,
       message: isValid
         ? "Proof verified successfully"
         : "Proof verification failed",

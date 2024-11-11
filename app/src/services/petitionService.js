@@ -1,35 +1,10 @@
 import { supabase } from "./supabaseClient";
 
-const hashPetitionData = async (title, description, nullifier) => {
-  const petitionText = title + description + nullifier;
-  const encoder = new TextEncoder();
-  const data = encoder.encode(petitionText);
-  const hashBuffer = await crypto.subtle.digest("SHA-256", data);
-  const hashArray = Array.from(new Uint8Array(hashBuffer));
-  const hashHex = hashArray
-    .map((b) => b.toString(16).padStart(2, "0"))
-    .join("");
-  return hashHex;
-};
-
 export const createPetition = async (petitionData) => {
-  const petitionHash = await hashPetitionData(
-    petitionData.title,
-    petitionData.description,
-    petitionData.anonAadhaarProof.proof.nullifier
-  );
-
-  // Add the hash to the proof
-  const modifiedProof = {
-    ...petitionData.anonAadhaarProof,
-    petition: petitionHash,
-  };
-
   const { data, error } = await supabase
     .from("petitions")
     .insert([
       {
-        petition_hash: petitionHash, // Store hash in separate column
         title: petitionData.title,
         description: petitionData.description,
         pincode_details: petitionData.pincodeDetails,
@@ -37,7 +12,7 @@ export const createPetition = async (petitionData) => {
         location: petitionData.location,
         pincode: petitionData.pincode,
         supporters: 0,
-        anon_aadhaar_proof: modifiedProof,
+        anon_aadhaar_proof: petitionData.anonAadhaarProof,
       },
     ])
     .select();
