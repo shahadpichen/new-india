@@ -104,6 +104,7 @@ function SubmitPetition() {
           pincode: formData.pincode,
           pincodeDetails: pincodeDetails,
           supporters: 0,
+          anonAadhaarProof: latestProof,
         };
 
         const { data, error } = await createPetition(petitionData);

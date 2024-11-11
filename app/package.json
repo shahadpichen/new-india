@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@anon-aadhaar/contracts": "^2.2.4",
-    "@anon-aadhaar/core": "^2.2.4",
+    "@anon-aadhaar/contracts": "^2.4.0",
+    "@anon-aadhaar/core": "^2.4.0",
     "@anon-aadhaar/react": "^2.2.4",
     "@supabase/supabase-js": "^2.46.1",
     "@testing-library/jest-dom": "^5.17.0",

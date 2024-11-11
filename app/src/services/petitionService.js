@@ -13,6 +13,7 @@ export const createPetition = async (petitionData) => {
         location: petitionData.location,
         pincode: petitionData.pincode,
         supporters: 0,
+        anon_aadhaar_proof: petitionData.anonAadhaarProof,
       },
     ])
     .select();
@@ -26,7 +27,7 @@ export const submitPetition = createPetition;
 export const getPetitions = async () => {
   const { data, error } = await supabase
     .from("petitions")
-    .select("*")
+    .select("*, anon_aadhaar_proof")
     .order("created_at", { ascending: false });
 
   if (error) throw error;
@@ -39,10 +40,6 @@ export const upvotePetition = async (
   voterPincode,
   petitionPincode
 ) => {
-  //   toast.info("Processing upvote...", {
-  //     description: `Verifying petition ${petitionId}`,
-  //   });
-
   if (voterPincode !== petitionPincode) {
     throw new Error("You can only upvote petitions from your pincode area");
   }

@@ -1,12 +1,65 @@
 import React from "react";
 import { BiSolidUpArrow } from "react-icons/bi";
-import { useAnonAadhaar, useProver } from "@anon-aadhaar/react";
+import { useAnonAadhaar } from "@anon-aadhaar/react";
+import { useProver } from "@anon-aadhaar/react";
 import { upvotePetition } from "../../services/petitionService";
 import { toast } from "sonner";
 
 const PetitionCard = ({ petition, getRelativeTimeString }) => {
   const [anonAadhaar] = useAnonAadhaar();
   const [, latestProof] = useProver();
+
+  const verifyUserProof = async (proof) => {
+    try {
+      const response = await fetch("http://localhost:5002/api/verify/proof", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ proof }),
+      });
+
+      const data = await response.json();
+      return data.success && data.isValid;
+    } catch (error) {
+      console.error("User verification error:", error);
+      return false;
+    }
+  };
+
+  const handleVerify = async () => {
+    try {
+      const storedProof = petition.anon_aadhaar_proof;
+
+      if (!storedProof || !storedProof.proof) {
+        toast.error("No proof found for this petition");
+        return;
+      }
+
+      const response = await fetch("http://localhost:5002/api/verify/proof", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ proof: storedProof }),
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        if (data.isValid) {
+          toast.success("Petition proof verified successfully!");
+        } else {
+          toast.error("Petition proof verification failed!");
+        }
+      } else {
+        throw new Error(data.message);
+      }
+    } catch (error) {
+      console.error("Verification error:", error);
+      toast.error("Failed to verify: " + error.message);
+    }
+  };
 
   const handleUpvote = async () => {
     if (anonAadhaar?.status !== "logged-in") {
@@ -15,17 +68,18 @@ const PetitionCard = ({ petition, getRelativeTimeString }) => {
     }
 
     try {
-      if (!latestProof) {
-        toast.error("No proof found. Please try logging in again.");
+      // First verify the user's proof
+      const isUserVerified = await verifyUserProof(latestProof);
+
+      if (!isUserVerified) {
+        toast.error(
+          "Your Aadhaar proof verification failed. Please try logging in again."
+        );
         return;
       }
 
       const nullifier = latestProof.proof.nullifier;
       const userPincode = latestProof.claim.pincode;
-
-      // toast.info("Verifying upvote...", {
-      //   description: `Pincode: ${userPincode}`,
-      // });
 
       if (!nullifier || !userPincode) {
         toast.error(
@@ -66,6 +120,12 @@ const PetitionCard = ({ petition, getRelativeTimeString }) => {
           <span className="bg-gray-200 px-2 py-1 rounded-full">
             PIN: {petition.pincode}
           </span>
+          <button
+            onClick={handleVerify}
+            className="bg-green-500 text-white px-3 py-1 rounded-full hover:bg-green-600 transition-colors"
+          >
+            Verify
+          </button>
         </div>
       </div>
       <div className="flex items-center justify-center text-sm">
