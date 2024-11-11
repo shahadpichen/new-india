@@ -4,7 +4,7 @@ import Proof from "../auth/anon-aadhaar-proof";
 import "../../styles/petitions.css";
 import { useNavigate } from "react-router-dom";
 
-const PetitionsSidebar = ({
+const Sidebar = ({
   selectedState,
   pincodeInput,
   pincodeResults,
@@ -13,30 +13,16 @@ const PetitionsSidebar = ({
   onPincodeChange,
   onIndiaClick,
 }) => {
-  const navigate = useNavigate();
-
   return (
-    <aside className="flex flex-col justify-between w-80 py-[10vh] pl-6 border-r space-y-6">
+    <aside className="flex flex-col justify-between w-40 py-[10vh] pl-6 border-r max-h-[93vh] space-y-6">
       <div className="flex flex-col justify-between">
-        <div
-          className="text-2xl text-end font-bold mb-8 pr-6 cursor-pointer"
-          style={{
-            WebkitTextFillColor: "#FFFFFF",
-            WebkitTextStrokeWidth: "1px",
-            WebkitTextStrokeColor: "#000",
-          }}
-          onClick={() => navigate("/")}
-        >
-          New-India
-        </div>
-
         <div className="flex flex-col text-sm items-end space-y-4">
-          <div className="w-1/2 petitions-sidebar ">
+          <div className="w-full petitions-sidebar ">
             <Proof />
           </div>
           <button
             onClick={onIndiaClick}
-            className="w-1/2 py-2 px-4 bg-orange-100 text-orange-600 font-semibold"
+            className="w-full py-2 px-4 bg-orange-100 text-orange-600 font-semibold"
           >
             India
           </button>
@@ -44,7 +30,7 @@ const PetitionsSidebar = ({
           <select
             value={selectedState}
             onChange={(e) => onStateChange(e.target.value)}
-            className="w-1/2 py-2 px-4 border border-r-0 focus:outline-none focus:border-orange-500"
+            className="w-full py-2 px-4 border border-r-0 focus:outline-none focus:border-orange-500"
           >
             <option disabled>Select State</option>
             {indianStates.map((state) => (
@@ -54,7 +40,7 @@ const PetitionsSidebar = ({
             ))}
           </select>
 
-          <div className="relative w-1/2">
+          <div className="relative w-full">
             <input
               type="number"
               placeholder="Enter Pincode"
@@ -83,17 +69,8 @@ const PetitionsSidebar = ({
           </div>
         </div>
       </div>
-
-      <div className="mt-auto pt-6 pr-1 border-t space-y-4">
-        <div className="flex items-center text-sm text-gray-600">
-          <p>Powered by Anon Aadhaar for secure verification</p>
-        </div>
-        <div className="flex items-center text-sm text-gray-600">
-          <p>Your identity remains completely anonymous</p>
-        </div>
-      </div>
     </aside>
   );
 };
 
-export default PetitionsSidebar;
+export default Sidebar;

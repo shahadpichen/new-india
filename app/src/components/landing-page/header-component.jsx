@@ -8,24 +8,29 @@ function Header() {
   return (
     <header className="flex justify-between items-center my-16">
       <h1
-        className="text-center text-2xl font-semibold cursor-pointer"
+        className="text-center text-2xl font-bold cursor-pointer"
         onClick={() => navigate("/")}
-        style={{
-          WebkitTextFillColor: "#FFFFFF",
-          WebkitTextStrokeWidth: "1px",
-          WebkitTextStrokeColor: "#000",
-        }}
       >
-        New-India
+        NewIndia
       </h1>
-      <div
-        className="flex justify-center items-center gap-2 cursor-pointer font-semibold"
-        onClick={() =>
-          window.open("https://github.com/shahadpichen/new-india", "_blank")
-        }
-      >
-        <FaGithub className="size-7" />
-        View on GitHub
+      <div className="flex gap-2">
+        <div
+          className="flex justify-center items-center gap-2 cursor-pointer hover:underline"
+          onClick={() =>
+            window.open("https://github.com/shahadpichen/new-india", "_blank")
+          }
+        >
+          How It Works
+        </div>
+        <div
+          className="flex justify-center items-center gap-2 cursor-pointer hover:underline"
+          onClick={() =>
+            window.open("https://github.com/shahadpichen/new-india", "_blank")
+          }
+        >
+          {/* <FaGithub className="size-7" /> */}
+          Github
+        </div>
       </div>
     </header>
   );

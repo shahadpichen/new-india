@@ -49,7 +49,7 @@ const PetitionCard = ({ petition, getRelativeTimeString }) => {
   };
 
   return (
-    <div className="min-w-[40vw] flex justify-between border gap-5 border-gray-200 rounded-sm p-4 hover:bg-gray-50 relative">
+    <div className="w-full flex justify-between border gap-5 border-gray-200 rounded-sm p-4 hover:bg-gray-50 relative">
       <span className="absolute top-2 right-2 text-xs text-gray-500">
         {getRelativeTimeString(petition.inserted_at)}
       </span>

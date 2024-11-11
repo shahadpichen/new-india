@@ -10,6 +10,8 @@ import SubmitPetition from "./pages/submit-petition";
 import { Toaster } from "sonner";
 import Terms from "./pages/terms";
 import Privacy from "./pages/privacy";
+import Vote from "./pages/vote";
+import Surveys from "./pages/surveys";
 
 function App() {
   return (
@@ -31,6 +33,12 @@ function App() {
           <Route path="/submit-petition" element={<SubmitPetition />} />
           <Route path="/terms" element={<Terms />} />
           <Route path="/privacy" element={<Privacy />} />
+          <Route path="/vote" element={<Vote />} />
+          <Route path="/vote/:state" element={<Vote />} />
+          <Route path="/vote/:state/:pincode" element={<Vote />} />
+          <Route path="/surveys" element={<Surveys />} />
+          <Route path="/surveys/:state" element={<Surveys />} />
+          <Route path="/surveys/:state/:pincode" element={<Surveys />} />
         </Routes>
       </Router>
     </>
