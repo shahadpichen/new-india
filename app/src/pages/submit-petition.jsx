@@ -96,6 +96,15 @@ function SubmitPetition() {
 
     if (validateForm()) {
       try {
+        if (
+          !latestProof ||
+          !latestProof.proof ||
+          !latestProof.proof.nullifier
+        ) {
+          toast.error("Invalid proof. Please try logging in again.");
+          return;
+        }
+
         const petitionData = {
           title: formData.title,
           description: formData.description,
