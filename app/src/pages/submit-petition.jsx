@@ -263,7 +263,7 @@ function SubmitPetition() {
                   description={formData.description.trim()}
                 />
               ) : (
-                <div className="p-4 bg-gray-100 rounded-lg">
+                <div className="py-2 px-4 bg-gray-100 rounded-lg">
                   <p className="text-sm text-gray-600">
                     Please fill in the title and description to proceed with
                     verification
@@ -284,7 +284,7 @@ function SubmitPetition() {
           <button
             type="button"
             onClick={() => navigate("/petitions")}
-            className="px-6 py-2 border border-gray-300 rounded-lg text-sm font-semibold hover:bg-gray-50"
+            className="px-4 py-2 border border-gray-300 rounded-lg text-sm font-semibold hover:bg-gray-50"
           >
             Cancel
           </button>
@@ -292,7 +292,7 @@ function SubmitPetition() {
       </form>
 
       <p className="mt-6 text-sm text-gray-600">
-        Your petition will be submitted anonymously.
+        Note: You need to <strong>login</strong> to submit a petition.
       </p>
     </div>
   );

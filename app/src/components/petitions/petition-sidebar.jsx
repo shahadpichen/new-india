@@ -14,7 +14,7 @@ const Sidebar = ({
 }) => {
   const navigate = useNavigate();
   return (
-    <aside className="flex flex-col justify-between w-40 py-[10vh] pl-6 border-r max-h-[93vh] space-y-6">
+    <aside className="flex flex-col justify-between w-40 py-[10vh] border-r max-h-[93vh] space-y-6">
       <div className="flex flex-col justify-between">
         <div className="flex flex-col text-sm items-end space-y-4">
           <div className="w-full petitions-sidebar ">

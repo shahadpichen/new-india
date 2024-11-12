@@ -3,7 +3,7 @@ import Header from "./header";
 
 const MainLayout = ({ children }) => {
   return (
-    <div className="min-h-screen">
+    <div className="h-screen overflow-hidden">
       <Header />
       <main className="container mx-auto">{children}</main>
     </div>

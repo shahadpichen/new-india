@@ -65,9 +65,15 @@ const Petitions = () => {
       if (pincodeInput && petition.pincode !== pincodeInput) {
         return false;
       }
+      if (
+        searchQuery &&
+        !petition.title.toLowerCase().includes(searchQuery.toLowerCase())
+      ) {
+        return false;
+      }
       return true;
     });
-  }, [selectedState, pincodeInput, petitions]);
+  }, [selectedState, pincodeInput, petitions, searchQuery]);
 
   const sortedPetitions = useMemo(() => {
     switch (activeSort) {
@@ -126,7 +132,7 @@ const Petitions = () => {
           onPincodeChange={handlePincodeChange}
           onIndiaClick={handleIndiaClick}
         />
-        <div className="px-6 py-8 w-[65%]">
+        <div className="px-6 py-8 w-[65%] h-[93vh] overflow-y-auto">
           <div className="flex w-full items-center gap-2 mb-6">
             <div className="w-full">
               <input

@@ -20,7 +20,7 @@ const Header = () => {
     <header className="flex items-center border-b h-[7vh] px-8 bg-white">
       <nav className="flex w-full justify-between items-center">
         <div
-          className="text-xl font-bold cursor-pointer hover:text-orange-600 transition-colors"
+          className="text-xl font-bold cursor-pointer"
           onClick={() => navigate("/")}
         >
           NewIndia
