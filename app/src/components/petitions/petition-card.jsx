@@ -72,16 +72,6 @@ const PetitionCard = ({ petition, getRelativeTimeString }) => {
     }
 
     try {
-      // First verify the user's proof
-      const isUserVerified = await verifyUserProof(latestProof);
-
-      if (!isUserVerified) {
-        toast.error(
-          "Your Aadhaar proof verification failed. Please try logging in again."
-        );
-        return;
-      }
-
       const nullifier = latestProof.proof.nullifier;
       const userPincode = latestProof.claim.pincode;
 

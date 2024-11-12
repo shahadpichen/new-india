@@ -44,6 +44,10 @@ const verifyAnonAadhaarProof = async (req, res) => {
   try {
     const { proof, title, description } = req.body;
 
+    // console.log("proof", proof);
+    // console.log("title", title, "asd");
+    // console.log("description", description);
+
     if (!proof || !proof.proof || !title || !description) {
       return res.status(400).json({
         success: false,
@@ -52,13 +56,13 @@ const verifyAnonAadhaarProof = async (req, res) => {
     }
 
     // Generate signal hash from title and description
-    const combinedString = `${title}:${description}`;
+    const combinedString = `${title.trim()}:${description.trim()}`;
     const initialHash = ethers.utils.keccak256(
       ethers.utils.toUtf8Bytes(combinedString)
     );
     const expectedSignalHash = hash(initialHash);
 
-    console.log("Expected signal hash:", expectedSignalHash);
+    // console.log("Expected signal hash:", expectedSignalHash);
 
     // Get signal hash from proof
     const proofSignalHash = proof.proof.signalHash;

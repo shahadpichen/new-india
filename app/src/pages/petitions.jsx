@@ -1,7 +1,8 @@
 import React, { useState, useMemo, useEffect } from "react";
 import MainLayout from "../components/layout/main-layout";
-import PetitionCard from "../components/petitions/petition-card";
 import Sidebar from "../components/petitions/petition-sidebar";
+import SearchAndSort from "../components/petitions/search-and-sort";
+import PetitionsList from "../components/petitions/petitions-list";
 import { getPetitionsData } from "../data/petitionsData";
 import { getPincodeDetails } from "../data/indianData";
 import { useNavigate, useParams } from "react-router-dom";
@@ -133,61 +134,18 @@ const Petitions = () => {
           onIndiaClick={handleIndiaClick}
         />
         <div className="px-6 py-8 w-[65%] h-[93vh] overflow-y-auto">
-          <div className="flex w-full items-center gap-2 mb-6">
-            <div className="w-full">
-              <input
-                type="text"
-                placeholder="Search petitions..."
-                value={searchQuery}
-                onChange={handleSearch}
-                className="px-4 py-2 border text-sm border-gray-300 focus:outline-none w-full "
-              />
-            </div>
-            <div className="w-fit flex items-center justify-end space-x-2 text-sm">
-              <button
-                onClick={() => setActiveSort("latest")}
-                className={`px-4 py-2  ${
-                  activeSort === "latest"
-                    ? "bg-black text-white"
-                    : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                }`}
-              >
-                Latest
-              </button>
-              <button
-                onClick={() => setActiveSort("most-upvoted")}
-                className={`px-3 py-2 w-[9vw] ${
-                  activeSort === "most-upvoted"
-                    ? "bg-black text-white"
-                    : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                }`}
-              >
-                Most Upvoted
-              </button>
-            </div>
-          </div>
-
-          <div className="mx-auto space-y-6">
-            {sortedPetitions.length === 0 ? (
-              <div className="text-center py-12">
-                <p className="text-base text-center text-gray-600">
-                  {selectedState === "Select State"
-                    ? "No petitions found in India yet. Area looks clean! 🌟"
-                    : `No petitions found in ${selectedState}${
-                        pincodeInput ? ` (PIN: ${pincodeInput})` : ""
-                      }. Area looks peaceful! 🌿`}
-                </p>
-              </div>
-            ) : (
-              sortedPetitions.map((petition) => (
-                <PetitionCard
-                  key={petition.id}
-                  petition={petition}
-                  getRelativeTimeString={getRelativeTimeString}
-                />
-              ))
-            )}
-          </div>
+          <SearchAndSort
+            searchQuery={searchQuery}
+            onSearch={handleSearch}
+            activeSort={activeSort}
+            setActiveSort={setActiveSort}
+          />
+          <PetitionsList
+            petitions={sortedPetitions}
+            selectedState={selectedState}
+            pincodeInput={pincodeInput}
+            getRelativeTimeString={getRelativeTimeString}
+          />
         </div>
       </div>
     </MainLayout>
