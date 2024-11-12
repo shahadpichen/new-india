@@ -45,7 +45,7 @@ const Header = () => {
             }`}
             onClick={() => navigate("/vote")}
           >
-            Vote
+            Election Predictions
           </div>
           <div
             className={`cursor-pointer transition-colors ${

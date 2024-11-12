@@ -20,16 +20,16 @@ function Home() {
           NewIndia is a platform for Indians to coordinate online in a{" "}
           <strong>decentralized</strong> and <strong>privacy </strong>{" "}
           preserving manner to build a better democracy. You can{" "}
-          <span className="underline">
+          <strong>
             {" "}
-            sign petitions, participate in surveys, vote in opinion polls, etc.{" "}
-          </span>{" "}
+            sign petitions, participate in surveys, mock election, etc.{" "}
+          </strong>{" "}
           without revealing your identity, yet proving you are an Indian
           resident.
         </p>
 
         <p className="text-gray-600 mt-8">
-          Petitions, surveys, opinion polls are spam proof, anonymous,
+          Petitions, surveys, mock elections are spam proof, anonymous,
           verifiable by anyone, and can be scoped to national, state, or
           pin-code level.
         </p>

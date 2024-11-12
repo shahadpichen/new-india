@@ -35,38 +35,15 @@ function HowItWorks() {
               </li>
               <li>Extracts only your PIN code for geographic verification</li>
               <li>Creates anonymous proofs for petition interactions</li>
+              <li>Ensures privacy while maintaining authenticity</li>
             </ul>
-            <div className="bg-gray-100 p-4 mb-4">
-              <pre className="text-sm overflow-x-auto">
-                <code>{`// Authentication Component
-import { LogInWithAnonAadhaar, useAnonAadhaar } from "anon-aadhaar-react";
-
-function PetitionSubmission() {
-  const [anonAadhaar] = useAnonAadhaar();
-
-  // Check if user is authenticated
-  if (anonAadhaar.status === "logged-in") {
-    const userPincode = anonAadhaar.pcd.proof.public.userPincode;
-    // Allow petition submission with verified pincode
-  }
-
-  return (
-        <LogInWithAnonAadhaar
-            nullifierSeed={1234}
-            fieldsToReveal={["revealPinCode"]}
-            signal={getSignal()}
-        />  // AnonAadhaar login button
-  );
-}`}</code>
-              </pre>
-            </div>
           </section>
 
           <section className="mb-8">
             <h2 className="text-2xl font-semibold mb-4">Petition Creation</h2>
             <p className="mb-4 text-gray-700">
-              When a petition is created, the following data is stored in our
-              Supabase database:
+              When creating a petition, users provide essential information
+              including:
             </p>
             <div className="bg-gray-100 p-4 mb-4">
               <pre className="text-sm overflow-x-auto">
@@ -88,29 +65,16 @@ function PetitionSubmission() {
           <section className="mb-8">
             <h2 className="text-2xl font-semibold mb-4">Upvoting System</h2>
             <p className="mb-4 text-gray-700">
-              The upvoting system ensures one vote per person per region through
-              these mechanisms:
+              Our upvoting system is designed to ensure democratic fairness and
+              prevent manipulation:
             </p>
-            <div className="bg-gray-100 p-4 mb-4">
-              <pre className="text-sm overflow-x-auto">
-                <code>{`// Upvote verification process
-async function upvotePetition(petitionId, nullifier, voterPincode, petitionPincode) {
-  // 1. Verify voter is from the same pincode
-  if (voterPincode !== petitionPincode) {
-    throw new Error("Can only upvote petitions from your pincode area");
-  }
-
-  // 2. Check for duplicate votes using nullifier
-  const existingUpvote = await checkNullifier(petitionId, nullifier);
-  if (existingUpvote) {
-    throw new Error("Already upvoted this petition");
-  }
-
-  // 3. Increment supporters count and store upvote
-  await incrementPetitionSupporters(petitionId, nullifier, voterPincode);
-}`}</code>
-              </pre>
-            </div>
+            <ul className="list-disc pl-6 space-y-2 text-gray-700">
+              <li>One vote per verified resident</li>
+              <li>Geographic verification to ensure local relevance</li>
+              <li>Anonymous yet verifiable voting mechanism</li>
+              <li>Real-time tracking of petition support</li>
+              <li>Transparent counting system</li>
+            </ul>
           </section>
 
           <section className="mb-8">
@@ -145,12 +109,13 @@ async function upvotePetition(petitionId, nullifier, voterPincode, petitionPinco
               Preventing Duplicate Votes
             </h2>
             <p className="mb-4 text-gray-700">
-              Duplicate votes are prevented through:
+              We maintain voting integrity through:
             </p>
             <ul className="list-disc pl-6 space-y-2 text-gray-700">
-              <li>Unique nullifier hash per user-petition combination</li>
-              <li>Database constraints on petition_upvotes table</li>
-              <li>Transaction-level checks using Supabase RPC calls</li>
+              <li>Unique identification of each vote</li>
+              <li>Robust database constraints</li>
+              <li>Real-time verification of vote authenticity</li>
+              <li>Geographic validation of voters</li>
             </ul>
             <div className="bg-gray-50 p-4 rounded-lg mt-4">
               <pre className="text-sm overflow-x-auto">
@@ -173,7 +138,7 @@ table: petition_upvotes {
             </p>
             <ul className="list-disc pl-6 space-y-2 text-gray-700">
               <li>Anonymous surveys with verifiable results</li>
-              <li>Opinion polls with geographic targeting</li>
+              <li>Mock election with geographic targeting</li>
               <li>Enhanced verification mechanisms</li>
               <li>Integration with more privacy-preserving protocols</li>
             </ul>
