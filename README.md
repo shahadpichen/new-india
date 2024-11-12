@@ -1,41 +1,47 @@
-# New-India
+# NewIndia: Building a Better Democracy
 
-New-India is a decentralized platform that enables citizens to create and support petitions anonymously using Anon Aadhaar for verification. The platform ensures privacy while maintaining accountability through pincode-based verification.
+NewIndia is a platform for Indians to coordinate online in a decentralized and privacy-preserving manner to build a better democracy. You can sign petitions, participate in surveys, mock elections, etc. without revealing your identity, while still proving you are an Indian resident.
 
-## About Anon Aadhaar
+## Overview
 
-Anon Aadhaar is a zero-knowledge proof protocol that allows users to prove they own an Aadhaar card without revealing their identity. In New_India:
+Petitions, surveys, and mock elections on NewIndia are:
 
-- Users verify their identity using their Aadhaar card's QR code
-- The proof contains the user's pincode but keeps other details private
-- A unique nullifier ensures each user can only upvote once
-- No personal information is stored or shared
+- **Spam-proof**: Verified Indian residents only
+- **Anonymous**: Complete privacy protection
+- **Verifiable**: Anyone can verify the authenticity
+- **Geographically Scoped**: National, state, or pin-code level targeting
 
-Learn more about [Anon Aadhaar](https://github.com/privacy-scaling-explorations/anon-aadhaar)
+## Powered by AnonAadhaar
 
-## Features
+NewIndia uses the AnonAadhaar project, which leverages Zero Knowledge Proofs to:
 
-- **Anonymous Authentication**: Uses Anon Aadhaar for secure, privacy-preserving verification
-- **Pincode-Based Petitions**: Users can only upvote petitions from their own pincode area
-- **One-Time Upvoting**: Each verified user can upvote a petition only once
-- **Location Filtering**: Filter petitions by state and pincode
-- **Real-time Updates**: Instant feedback on petition submissions and upvotes
+- Prove Aadhaar ownership without revealing identity
+- Extract only PIN Code information
+- Keep all other personal details private
+- Create verifiable anonymous proofs
 
-## Environment Setup
+Learn more about [AnonAadhaar](https://github.com/privacy-scaling-explorations/anon-aadhaar)
 
-1. Create a Supabase project at [supabase.com](https://supabase.com)
+## Key Features
 
-2. Get your Supabase credentials:
+- **Anonymous Authentication**: Secure verification without identity revelation
+- **Geographic Verification**: Pincode-based system ensuring local relevance
+- **Privacy First**: Zero knowledge proofs for complete privacy
+- **Democratic Participation**: Create and support local to national initiatives
+- **Real-time Updates**: Instant feedback on all activities
 
-   - Go to Project Settings
-   - Find API Settings
-   - Copy the `Project URL` and `anon` public API key
+## Getting Started
 
-3. Create a `.env.local` file in the project root with the following content:
+1. Clone the repository:
 
-   ```
-   REACT_APP_SUPABASE_URL=your_project_url
-   REACT_APP_SUPABASE_ANON_KEY=your_anon_key
-   ```
+```bash
+git clone https://github.com/shahadpichen/newindia.git
+cd newindia
+```
 
-If you encounter any issues, please open an issue on our GitHub repository.
+2. Set up the frontend and backend:
+
+- Follow instructions in `app/README.md` for frontend setup
+- Follow instructions in `server/README.md` for backend setup
+
+© NewIndia - A platform for Indians to build a better democracy.
