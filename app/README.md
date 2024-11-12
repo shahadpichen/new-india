@@ -9,6 +9,7 @@ React-based frontend for the NewIndia platform.
 ```env
 REACT_APP_SUPABASE_URL=your_supabase_project_url
 REACT_APP_SUPABASE_ANON_KEY=your_supabase_anon_key
+REACT_APP_BACKEND_URL=http://localhost:5002
 ```
 
 2. Install dependencies:
