@@ -11,13 +11,16 @@ const PetitionCard = ({ petition, getRelativeTimeString }) => {
 
   const verifyUserProof = async (proof) => {
     try {
-      const response = await fetch("http://localhost:5002/api/verify/proof", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ proof }),
-      });
+      const response = await fetch(
+        `${process.env.REACT_APP_BACKEND_URL}/api/verify/proof`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ proof }),
+        }
+      );
 
       const data = await response.json();
       return data.success && data.isValid;
@@ -36,17 +39,20 @@ const PetitionCard = ({ petition, getRelativeTimeString }) => {
         return;
       }
 
-      const response = await fetch("http://localhost:5002/api/verify/proof", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          proof: storedProof,
-          title: petition.title,
-          description: petition.description,
-        }),
-      });
+      const response = await fetch(
+        `${process.env.REACT_APP_BACKEND_URL}/api/verify/proof`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            proof: storedProof,
+            title: petition.title,
+            description: petition.description,
+          }),
+        }
+      );
 
       const data = await response.json();
 
