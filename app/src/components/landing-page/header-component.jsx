@@ -1,6 +1,6 @@
 import React from "react";
 import { FaGithub } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 function Header() {
   const navigate = useNavigate();
@@ -14,21 +14,18 @@ function Header() {
         NewIndia
       </h1>
       <div className="flex gap-2">
-        <div
+        <Link
+          to="/how-it-works"
           className="flex justify-center items-center gap-2 cursor-pointer hover:underline"
-          onClick={() =>
-            window.open("https://github.com/shahadpichen/new-india", "_blank")
-          }
         >
           How It Works
-        </div>
+        </Link>
         <div
           className="flex justify-center items-center gap-2 cursor-pointer hover:underline"
           onClick={() =>
             window.open("https://github.com/shahadpichen/new-india", "_blank")
           }
         >
-          {/* <FaGithub className="size-7" /> */}
           Github
         </div>
       </div>

@@ -12,6 +12,7 @@ import Terms from "./pages/terms";
 import Privacy from "./pages/privacy";
 import Vote from "./pages/vote";
 import Surveys from "./pages/surveys";
+import HowItWorks from "./pages/how-it-works";
 
 function App() {
   return (
@@ -39,6 +40,7 @@ function App() {
           <Route path="/surveys" element={<Surveys />} />
           <Route path="/surveys/:state" element={<Surveys />} />
           <Route path="/surveys/:state/:pincode" element={<Surveys />} />
+          <Route path="/how-it-works" element={<HowItWorks />} />
         </Routes>
       </Router>
     </>
